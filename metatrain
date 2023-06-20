@@ -1,0 +1,7 @@
+# not used yet
+#!/usr/bin/env python3
+# executable
+from metatimetrain import main
+
+if __name__ == '__main__':
+    main()
