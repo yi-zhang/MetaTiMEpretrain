@@ -1,6 +1,8 @@
 analysis
 test
-test/data
+test/data*
+test/data/datameta1.tsv
+test/data/icb
 tmp
 metatimetrain/__pycache__
 metatimetrain/src/__pycache__
