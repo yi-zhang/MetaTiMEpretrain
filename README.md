@@ -1,7 +1,7 @@
 
 # Pipeline for calling Meta-Components from multiple scRNA-seq data.
 
-This MetaTiMEpretrain repo, when ran on a large set of scRNA-seq samples, can generate gene programs corresponding to cell types, cell states, or signaling pathways in the provided data. Meta-components called from scRNA-seq represent independent transcriptional variations, reproducibly seen in data, in format as weighted gene contribution vectors. For now the low-dim method is independent component analysis. Check [MetaTiME paper]([https://www.nature.com/articles/s41467-023-38333-8](https://www.nature.com/articles/s41467-023-38333-8)) or [MetaTiME annotator repor]([https://github.com/yi-zhang/MetaTiME](https://github.com/yi-zhang/MetaTiME)) for the scenario of Tumor Microenvironment.
+This MetaTiMEpretrain repo, when ran on a large set of scRNA-seq samples, can generate gene programs corresponding to cell types, cell states, or signaling pathways in the provided data. Meta-components called from scRNA-seq represent independent transcriptional variations, reproducibly seen in data, in format as weighted gene contribution vectors. For now the low-dim method is independent component analysis. Check [MetaTiME paper](https://www.nature.com/articles/s41467-023-38333-8) or [MetaTiME annotator repo](https://github.com/yi-zhang/MetaTiME) for the scenario of Tumor Microenvironment.
 [in progress :)]
 
 ## Dependency
@@ -10,11 +10,11 @@ This MetaTiMEpretrain repo, when ran on a large set of scRNA-seq samples, can ge
 
 ## Test run
 
-- `git clone [https://github.com/yi-zhang/MetaTiMEpretrain.git](https://github.com/yi-zhang/MetaTiME.git)`
+- `git clone https://github.com/yi-zhang/MetaTiME.git`
 - `cd MetaTiMEpretrain`
-- Collect your scRNA datasets in  <input dir> as h5ad format. Or, a few tumor scRNA datasets are provided in this [sample input link]([https://www.dropbox.com/scl/fo/udl7ep9juxqn79bj64vlm/h?rlkey=jzg5m9zqxmnl7ec5iaj1l8cqu&dl=0](https://www.dropbox.com/scl/fo/udl7ep9juxqn79bj64vlm/h?rlkey=jzg5m9zqxmnl7ec5iaj1l8cqu&dl=0)). Download folder and cp to `MetaTiMEpretrain/test/`, or point to it as input `datadir` in `scpp.py`.
+- Collect your scRNA datasets in  <input dir> as h5ad format. Or, a few tumor scRNA datasets are provided in this [sample input link](https://www.dropbox.com/scl/fo/udl7ep9juxqn79bj64vlm/h?rlkey=jzg5m9zqxmnl7ec5iaj1l8cqu&dl=0). Download folder and cp to `MetaTiMEpretrain/test/`, or point to it as input `datadir` in `scpp.py`.
 - `sh test.sh` # This is a script containing a few sequential steps, explained below.
-- An output folder for this sample input data is available from [result dir for testrun]([https://www.dropbox.com/scl/fo/udl7ep9juxqn79bj64vlm/h?rlkey=jzg5m9zqxmnl7ec5iaj1l8cqu&dl=0](https://www.dropbox.com/scl/fo/udl7ep9juxqn79bj64vlm/h?rlkey=jzg5m9zqxmnl7ec5iaj1l8cqu&dl=0)).
+- An output folder for this sample input data is available from [result dir for testrun](https://www.dropbox.com/scl/fo/udl7ep9juxqn79bj64vlm/h?rlkey=jzg5m9zqxmnl7ec5iaj1l8cqu&dl=0).
 
 ## Steps in pipeline
 
