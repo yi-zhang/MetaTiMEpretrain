@@ -1,5 +1,6 @@
 analysis
 test
+test/data
 tmp
 metatimetrain/__pycache__
 metatimetrain/src/__pycache__
