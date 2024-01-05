@@ -10,7 +10,7 @@ This MetaTiMEpretrain repo, when ran on a large set of scRNA-seq samples, can ge
 
 ## Test run
 
-- `git clone https://github.com/yi-zhang/MetaTiME.git`
+- `git clone https://github.com/yi-zhang/MetaTiMEpretrain.git`
 - `cd MetaTiMEpretrain`
 - Collect your scRNA datasets in  <input dir> as h5ad format. Or, a few tumor scRNA datasets are provided in this [sample input link](https://www.dropbox.com/scl/fo/0ntqv0ki3c0etbnyvnskg/h?rlkey=5wzrhh9926po5m58s0cksdhap&dl=0). Download folder and cp to `MetaTiMEpretrain/test/`, or point to it as input `datadir` in `scpp.py`.
 - `sh test.sh` # This is a script containing a few sequential steps, explained below.
