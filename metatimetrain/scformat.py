@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Pre-processing all dataset from 10x format to h5ad.
+# Pre-processing all dataset from 10x triplet format to h5ad. Also accept: 10x triplets, h5file, in folder or in subfolder (1 sample). If in subfolder, the result file will be named by the subfolder name. Read into h5ad, compatible with .gz compressed files
 
 
 import sys
@@ -33,8 +33,11 @@ def decompressgz(datadir, outdir, filename, mode ='nodecompress'):
         shutil.copy(file, outdir)
 
 
+        
 def decompress10x(datadir, outdir='../TMP/'):
-    prefix10s = [ t.replace('matrix.mtx.gz','') for t in os.listdir(datadir) if 'matrix.mtx.gz' in t ] 
+    
+    # triplet files
+    prefix10s = [ t.replace('matrix.mtx.gz','') for t in os.listdir(datadir) if ('matrix.mtx.gz' in t and os.path.isfile(t)) ] 
     for prefix10 in prefix10s:
         # two types iof feature suffix
         fea_fn = prefix10 + 'features.tsv.gz'
@@ -68,14 +71,43 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if not os.path.isdir(args.outdir): #generate output folder if not there
         os.makedirs(args.outdir)
+        
+    # for 10x triplets gz in folder directly
     prefix10s = decompress10x(args.datadir, outdir = args.outdir) #[todo] a few format not comptible. see  GSM5645904_Unknown_Carc_
     ## getting 10x prefix
-
     for prefix10 in prefix10s:
         print('[Log] converting ', prefix10)
         outfile = os.path.join(args.outdir, prefix10+'.h5ad')
         if(os.path.isfile(outfile)):
             print('[Log File Exist]', outfile)
             continue
-        adata = sc.read_10x_mtx(path = args.outdir, prefix = prefix10)
-        adata.write(os.path.join(args.outdir, prefix10+'.h5ad'))
+        adata = sc.read_10x_mtx(path = args.datadir, prefix = prefix10)
+        adata.write(outfile)
+       
+    # if this is a args.datadir where prefix shall be subfolder names
+    prefix10dirs = [t for t in os.listdir(args.datadir) if os.path.isdir(t)] 
+    for prefix10dir in prefix10dirs:
+        if 'matrix.mtx.gz' in os.listdir( os.path.join(args.datadir, prefix10dir)): #the mtx usually does not have a name
+            print('[Log] converting 10x triplet in subfolder', prefix10dir)
+            outfile = os.path.join(args.outdir, prefix10dir+'.h5ad')
+            if(os.path.isfile(outfile)):
+                print('[Log File Exist]', outfile)
+                continue
+            adata = sc.read_10x_mtx(path = os.path.join(args.datadir, prefix10dir) )
+            adata.write(outfile)
+            
+    # h5 file in the folder directly
+    h5files = [t for t in os.listdir(args.datadir) if ( os.path.isfile(t) and t.split('.')[-1]=='h5') ]
+    prefixh5s = [t[:-3] for t in h5files]
+    for prefixh5 in prefixh5s:
+        print('[Log] converting h5 in folder', prefixh5)
+        outfile = os.path.join(args.outdir, prefixh5+'.h5ad')
+        if(os.path.isfile(outfile)):
+            print('[Log File Exist]', outfile)
+            continue
+        adata = sc.read_10x_h5(os.path.join(args.datadir, prefixh5+'.h5'))
+        adata.write(outfile)
+        
+    
+                                                         
+    

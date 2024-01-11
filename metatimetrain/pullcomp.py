@@ -62,6 +62,23 @@ if __name__ == '__main__':
         filenames = [ t for t in os.listdir(args.compdir) if t.split('.')[-len(args.filesuffix):] == args.filesuffix ]
     else:
         filenames = pd.read_table(args.listfile, names=['file'])['file'].values.tolist()
+        print('Inputted list file: ', filenames)
+
+        # if only performing on the subset, create a temp folder
+
+        import shutil
+        import os
+        subsetcompdir = args.compdir + '/' + 'subset_to_call_mec/'
+        if not os.path.isdir(subsetcompdir):
+            os.makedirs(subsetcompdir)
+        
+        for filename in filenames:
+            print(filename)
+            realfilename = [t for t in os.listdir(args.compdir) if filename in t][0]
+            shutil.copyfile(os.path.join(args.compdir, realfilename),
+                            os.path.join(subsetcompdir, realfilename)
+                            )
+        args.compdir = subsetcompdir
         # []Error
         #print('Error, no input filelist found')
     concatcomp(args.compdir, args.outdir)   

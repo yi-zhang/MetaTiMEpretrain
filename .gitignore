@@ -6,3 +6,4 @@ test/data/icb
 tmp
 metatimetrain/__pycache__
 metatimetrain/src/__pycache__
+*breast*sh
